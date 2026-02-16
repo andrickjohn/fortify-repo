@@ -1,0 +1,144 @@
+ISSUED/PRINTED BID/REQUISITION # BUYER CONTACT PHONE NUMBER
+DELIVERY HOURS
+VENDOR #
+P:
+F:
+VENDOR ACCT #/TERMS REQUESTOR/END USE SHIP VIA/FOB
+FROM/BILL TO: TO: SHIP TO:
+Page 1 of 1	ITEM NO ITEM DESCRIPTION QTY UNIT COST EXTENSION
+DELIVERY DUE DATE
+PURCHASE ORDER NUMBER
+(THIS NUMBER MUST APPEAR ON ALL
+SHIPPED MATERIAL AND CORRESPONDENCE)
+ACCOUNTS AND AMOUNTS Subtotal:
+Tax:
+Discount:
+Freight:
+PO Total:
+Elizabeth Bader x45
+T8001625
+0.00
+105,658.00
+0.00
+SEE BELOW
+T80P0540
+PO BOX 46218
+MADISON, WI 53744-6218
+SINGLEWIRE SOFTWARE LLC
+105,658.00
+M.DEIBNER 714-628-4440
+Authorized Signature
+0101-0000-0-5843-0000-2420-430-21000000 105,658.00
+V80110441
+(608) 661-1140	07/26/23
+08/11/23
+ORANGE UNIFIED SCHOOL DISTRICT
+1401 NORTH HANDY ST
+ORANGE, CA 92867
+TECHNOLOGY SERVICES
+1401 N HANDY ST BLDG I
+ORANGE, CA 92867
+0001
+0002
+0003
+0004
+0005
+SS-CPF-3 - SOFTWARE PROVISIONING
+SSF-5YR-USR-TIER 2 - INFORMACAST FUSION, USER BASE UP TO 250
+USERS, TERM 5 YEARS
+SSF-5YR-EPA-TIER 3 - INFORMACAST FUSION IP PHONE ENDPOINT
+ADD-ON, TERM 5 YEARS
+SSF-5YR-EPA-TIER 3 - INFORMACAST FUSION IP SPEAKER ENDPOINT
+ADD-ON, TERM 5 YEARS
+SS-PS-JS-2 - JUMPSTART
+PER QUOTE NO. Q-48563
+DATED: 07/24/23
+1
+250
+1,350
+450
+1
+EA
+EA
+EA
+EA
+EA
+1,500.00
+66.56
+43.76
+43.76
+8,750.00
+1,500.00
+16,640.00
+59,076.00
+19,692.00
+8,750.00
+Instructions:
+Email purchasing@orangeusd.org for questions about this Purchase
+Order. Email accountspayable@orangeusd.org for questions about
+invoicing.
+Term s and Conditions: If an agreement is referred
+herein, then those terms & conditions prevail; otherwise,
+the District’s Purchase Order T erms & Conditions stated on
+https://www.orangeusd.org/departments/business-services/purchasing
+prevail. By accepting this PO, Vendor acknowledges these terms &
+conditions.
+
+-- 1 of 3 --
+
+Singlewire Software ~ P.O. Box 46218 ~ Madison, WI 53744-6218
+Phone: (608) 661-1140 ~ Fax: 888-243-8007 ~ www.singlewire.com PG 1
+QUOTE Q-48563
+Created Date: July 24, 2023
+Expiration Date: August 23, 2023
+Singlewire Territory Manager: Dave Nelson
+Phone: (608) 421-7288
+Email: dave.nelson@singlewire.com
+Account Name: Orange USD
+Primary Contact: David Lane
+Please send purchase orders to orders@singlewire.com
+PRODUCT NAME SKU QTY CUSTOMER
+UNIT PRICE
+CUSTOMER
+NET TOTAL
+Software Provisioning SS-CPF-3 1 $1,500.00 $1,500.00
+InformaCast Fusion User Base up to 250 Users
+Term 5 Year(s) SSF-5YR-USR-TIER 2 250 $66.56 $16,640.00
+InformaCast Fusion IP Phone Endpoint Add-On
+Term 5 Year(s) SSF-5YR-EPA-TIER 3 1,350 $43.76 $59,076.00
+InformaCast Fusion IP Speaker Endpoint Add-On
+Term 5 Year(s) SSF-5YR-EPA-TIER 3 450 $43.76 $19,692.00
+JumpStart SS-PS-JS-2 1 $8,750.00 $8,750.00
+Customer Net Total
+$105,658.00
+This quotation is issued in US Dollars. A purchase order must be submitted in US Dollars for acceptance.
+Submit to orders@singlewire.com
+THIS DOCUMENT IS EXPRESSLY CONDITIONED UPON THE TERMS AND CONDITIONS LOCATED AT WWW.SINGLEWIRE.COM/TERMS
+(“TERMS”), AND THOSE TERMS ARE INCORPORATED BY REFERENCE INTO THIS DOCUMENT AS IF FULLY STATED HEREIN. EXCEPT
+TO THE EXTENT WAIVED, AMENDED OR MODIFIED BY AN OFFICER OF SINGLEWIRE IN A SIGNED ELECTRONIC OR WRITTEN
+DOCUMENT, YOU AGREE TO THESE TERMS AND SHALL BE DEEMED TO HAVE ACCEPTED THEM BY SIGNING ABOVE, PLACING AN
+ORDER AND/OR PERMITTING, EXPRESSLY OR IMPLIED, A SERVICE TO COMMENCE. ANY ADDITIONAL OR DIFFERENT TERMS OR
+CONDITIONS IN ANY FORM DELIVERED BY YOU OR ON YOUR BEHALF ARE HEREBY DEEMED TO BE MATERIAL ALTERATIONS AND
+NOTICE OF OBJECTION TO THEM AND REJECTION OF THEM IS HEREBY GIVEN.
+THANK YOU FOR YOUR BUSINESS!
+
+-- 2 of 3 --
+
+From: 	Pike, Heather
+To: 	ORDERS@SINGLEWIRE.COM
+Cc: 	Bader, Elizabeth (Liz); Accounts Payable
+Subject: 	PO# T80P0540 - SINGLEWIRE SOFTWARE LLC
+Date: 	Monday, August 14, 2023 7:59:00 AM
+Attachments: 	T80P0540 - SINGLEWIRE.pdf
+image001.png
+Hello,
+Attached is purchase order number T80P0540
+Please confirm you have received this email.
+Please send invoices and payment inquiries to Accounts Payable at
+accountspayable@orangeusd.org.
+Thank you,
+Purchasing Department
+Orange Unified School District
+
+-- 3 of 3 --
+

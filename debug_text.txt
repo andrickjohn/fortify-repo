@@ -1,0 +1,590 @@
+ISSUED/PRINTED BID/REQUISITION # BUYER CONTACT PHONE NUMBER
+DELIVERY HOURS
+VENDOR #
+P:
+F:
+VENDOR ACCT #/TERMS REQUESTOR/END USE SHIP VIA/FOB
+FROM/BILLTO: TO: SHIP TO:
+Page 1 of 2	ITEM NO ITEM DESCRIPTION QTY UNIT COST EXTENSION
+DELIVERY DUE DATE
+PURCHASE ORDER NUMBER
+(THIS NUMBER MUST APPEAR ON ALL
+SHIPPED MATERIAL AND CORRESPONDENCE)
+ACCOUNTS AND AMOUNTS Subtotal:
+Tax:
+Discount:
+Freight:
+PO Total:
+Elizabeth Bader
+W8000364 SEE BELOW
+W80B0137
+DBA COMPUDIRECT 3000 INC.
+23052 LAKE FOREST DR #D1
+LAGUNA HILLS, CA 92653
+NILOO@CD3K.COM
+MK MANAGEMENT INC
+M.DEIBNER 714-628-4440
+V80116379
+(949) 581-3036	07/01/25
+01/16/26
+ORANGE UNIFIED SCHOOL DISTRICT
+1401 NORTH HANDY ST
+ORANGE, CA 92867
+TECHNOLOGY SERVICES
+1401 N HANDY ST BLDG I
+ORANGE, CA 92867
+** CONTINUED **
+0001
+0002
+0003
+THIS IS AN OPEN PURCHASE ORDER FOR OFFSITE REPAIRS,
+RATES BASED ON ATTACHED RATE SHEET
+FOR THE PERIOD: 07/01/25 - 06/30/26
+AUTHORIZED SIGNATURES:
+BADER, LIZ
+LANE, DAVID
+NGUYEN, TAM
+CHANGE ORDER NO. 1
+TO UPDATE AUTHORIZED SIGNATURES:
+ADD:
+JOHNSON, CRYSTAL
+NO CHANGE TO PURCHASE ORDER TOTAL
+CHANGE ORDER NO. 2
+TO INCREASE PURCHASE ORDER
+1
+1
+1
+LT
+LT
+LT
+100,000.00
+0.00N
+-1,911.22
+100,000.00
+o Charge
+-1,911.22
+Instructions:
+Email purchasing@orangeusd.org for questions about this Purchase
+Order. Email accountspayable@orangeusd.org for questions about
+invoicing.
+Terms and Conditions: If an agreement is referred
+herein, then those terms & conditions prevail; otherwise,
+the District’s Purchase Order Terms & Conditions stated on
+https://www.orangeusd.org/departments/business-services/purchasing
+prevail. By accepting this PO, Vendor acknowledges these terms &
+conditions.
+
+-- 1 of 12 --
+
+ISSUED/PRINTED BID/REQUISITION # BUYER CONTACT PHONE NUMBER
+DELIVERY HOURS
+VENDOR #
+P:
+F:
+VENDOR ACCT #/TERMS REQUESTOR/END USE SHIP VIA/FOB
+FROM/BILLTO: TO: SHIP TO:
+Page 2 of 2	ITEM NO ITEM DESCRIPTION QTY UNIT COST EXTENSION
+DELIVERY DUE DATE
+PURCHASE ORDER NUMBER
+(THIS NUMBER MUST APPEAR ON ALL
+SHIPPED MATERIAL AND CORRESPONDENCE)
+ACCOUNTS AND AMOUNTS Subtotal:
+Tax:
+Discount:
+Freight:
+PO Total:
+Elizabeth Bader
+W8000364
+0.00
+93,098.51
+0.00
+SEE BELOW
+W80B0137
+DBA COMPUDIRECT 3000 INC.
+23052 LAKE FOREST DR #D1
+LAGUNA HILLS, CA 92653
+NILOO@CD3K.COM
+MK MANAGEMENT INC
+93,098.51
+M.DEIBNER 714-628-4440
+Authorized Signature
+0101-0017-0-5640-0000-2420-430-40130800 93,098.51
+V80116379
+(949) 581-3036	07/01/25
+01/16/26
+ORANGE UNIFIED SCHOOL DISTRICT
+1401 NORTH HANDY ST
+ORANGE, CA 92867
+TECHNOLOGY SERVICES
+1401 N HANDY ST BLDG I
+ORANGE, CA 92867
+0004
+ORIGINAL AMOUNT: $100,000.00
+C/O NO. 2: -$1,911.22
+REVISED AMT: $98,088.78
+CHANGE ORDER NO. 3
+TO INCREASE PURCHASE ORDER
+ORIGINAL AMOUNT: $98,088.78
+C/O NO. 3: -$4990.27
+REVISED AMT: $93,098.51
+1 LT -4,990.27 -4,990.27
+Instructions:
+Email purchasing@orangeusd.org for questions about this Purchase
+Order. Email accountspayable@orangeusd.org for questions about
+invoicing.
+Terms and Conditions: If an agreement is referred
+herein, then those terms & conditions prevail; otherwise,
+the District’s Purchase Order Terms & Conditions stated on
+https://www.orangeusd.org/departments/business-services/purchasing
+prevail. By accepting this PO, Vendor acknowledges these terms &
+conditions.
+
+-- 2 of 12 --
+
+ORANGE UNIFIED SCHOOL DISTRICT
+PO CHANGE ORDER REQUEST FORM
+SITE/DEPARTMENT:
+VENDOR INFORMATION
+PO # VENDOR NAME:
+PURCHASE ORDER DETAIL
+CHANGE ORDER NO. __________
+☐ INCREASE ☐ DECREASE ☐ CLOSE OUT ☐ AAUTHORIZED USERS CHANGE
+☐ ADDITIONAL BUDGET LINES/REALLOCATION OF FUNDS
+ORIGINAL AMOUNT: $ CHANGE ORDER AMOUNT: $
+REVISED AMOUNT: $
+DESCRIPTION / REASON FOR CHANGE
+AUTHORIZED USER CHANGE DETAIL (LAST NAME, FIRST NAME)
+REMOVE: , ,
+ADD: , ,
+ACCOUNT INFORMATION
+Budget Line 1: $
+Budget Line 2: $
+Budget Line 3: $
+APPROVAL SIGNATURES (Required to process)
+______________________________
+School/Dept Signature
+____________________________
+Date
+Cabinet Approval Admin Signature Purchasing Signature
+Date Date Date
+0671303
+BUSINESS SERVICES
+W80B0137 MK MANAGEMENT
+1 At least one option is required for submission.
+x
+100000 -4990.27
+95009.73
+ENCUMBRANCE CORRECTION INV 37823 37972 PAID FROM ANOTHER ACCOUNT AND WHEN ACCOUNT WAS CHANGED THE EN WAS
+NOT CORRECTED. NEED TO REDUCE INORDER TO CORRECT ENCUMBRANCE BALANCE IN LEDGER
+0101-0017-0-5640-0000-2420-430-40130800 -4990.27
+Kathleen Arciniega
+01/14/2026
+
+-- 3 of 12 --
+
+:JOB POPO,HPIKE.ADMIN
+PRIORITY=DS; INPRI=8; TIME=UNLIMITED SECONDS
+JOB NUMBER = #J16737
+Transport COPYRIGHT 1994-2017 PowerSchool
+All Rights Reserved
+:SETJCW JCW 0
+:export MPE_JOBNAME=POPO
+:FILE LP=POPO;dev=workflow,08,01
+:FILE FP=POPO;dev=ousdpopdf,08,01
+:CONTINUE
+:BUILD RUNREQ;REC=-80,16,F,ASCII;DISC=200;TEMP
+:CONTINUE
+:BUILD USERID;REC=-512,1,F,ASCII;DISC=1;TEMP
+:FILE USERID;SHR
+:CONTINUE
+:BUILD RUNDESC;REC=-80,16,F,ASCII;DISC=200,10;TEMP
+:CONTINUE
+:BUILD TELLUSER;REC=-80,16,F,ASCII;TEMP
+:RUN /powerschool/app/prog/nu020.gnt
+:echo '4850494B4520202020202020486561746865722050696B6520202020202020202020202033373636' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '383439374F555344202D2050555243484153494E4720434C45524B20202020202020202020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '383046495343414C3830202020202020455854454E4445440000000000005C474C444C2020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '20202020202020202020202020202020202020202020202020202020202020202020202020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '2E444154412E41444D494E202020202020202E5045524D2E41444D494E202020202020202E464F52' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '4D532E41505020202020202020202E50524F472E4150502020202020202020202020202020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '2E504F535445442E41444D494E202020202041444D494E20202004A2000000000000000000000000' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '0000000053564353514C2D420000204E202020202020202020202020202020202020202020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'A27CC691303141524348495645203038303138305258504F20203038303141524348495645203038' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '30313830504F50444620303820202020202020202020202020202020202020202020202020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '2E4452495645522E415050202020202020202E4641535444522E415050202020202020202E524446' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '2E41444D494E202020202020202038302D2D0000343000019B792020202020202020202020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '504F504F202020202020202020202020202020202020202020202020202000000000000000002020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '20202020202020202020202020202020202020202020202020202020202041430030202020202020' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'SY01PO' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO01PO' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO0DRX' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO2001/16/2026' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO21PO' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PA02W80B0137' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO2BN' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO2CN' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'SY030180POPDF 08' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO24NO' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PE12NO' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO1103' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO6135' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PA32ALL' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO6200' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO6300' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO6400' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO6500' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO0YSEED' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'MASKPOPO' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '** END **' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo ' System: \\1Purchasing \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo ' Purchasing Function: \\1Print Purchase Orders \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Format Code : \\1RX \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Purchase Order Date : \\101/16/2026 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Print by : \\1PO \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Purchase Order Number : \\1W80B0137 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Renumber Items : \\1N \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Changes Only : \\1N \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'FP Copies, Name, Pri. & Option: \\10180POPDF 08 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+
+-- 4 of 12 --
+
+:echo 'Daisy Chain : \\1NO \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Print Labels : \\1NO \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Selection Criteria : \\103 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PR/PO Selection Criteria : \\135 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'End Use : \\1ALL \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Item Selection Criteria : \\100 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Associated Value Criteria : \\100 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'Receiving Selection Criteria : \\100 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO Event Selection Criteria : \\100 \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo 'PO Sequence Identifier : \\1SEED \\0' >>/powerschool/admin/tmp/13228/stdinFile.00
+:echo '** FINI **' >>/powerschool/admin/tmp/13228/stdinFile.00
+Begin NU020 <1.18>
+R U N R E Q U E S T R E P O R T
+Client Name : \GLDL
+User ID : HPIKE
+User Name : Heather Pike
+User Description : OUSD - PURCHASING CLERK
+User Location Code : 80FISCAL
+User Manager Code : 80
+User Hours Code : EXTENDED
+User Terminal LDEV : 0
+User No : 3940
+User Job Request Date: 01/16/26
+User Job Request Time: 10:53:37
+User Job Start Date : 01/16/26
+User Job Start Time : 10:53:45
+IFAS Job Number : 37668497
+Session# : 0
+RUN REQUEST DESCRIPTION USER SELECTION
+=============================== ===============================
+System: Purchasing
+Purchasing Function: Print Purchase Orders
+Format Code : RX
+Purchase Order Date : 01/16/2026
+Print by : PO
+Purchase Order Number : W80B0137
+Renumber Items : N
+Changes Only : N
+FP Copies, Name, Pri. & Option: 0180POPDF 08
+Daisy Chain : NO
+Print Labels : NO
+Selection Criteria : 03
+PR/PO Selection Criteria : 35
+End Use : ALL
+Item Selection Criteria : 00
+Associated Value Criteria : 00
+Receiving Selection Criteria : 00
+PO Event Selection Criteria : 00
+PO Sequence Identifier : SEED
+End NU020 <1.18>
+END OF PROGRAM
+:PURGE PEADDRS,TEMP
+File "!" not found. No purge done. (CIWARN 383)
+:RUN /powerschool/app/prog/po600.gnt
+
+-- 5 of 12 --
+
+Begin PO600 <1.72> FRI, JAN 16, 2026, 10:53 AM IFAS 7 /2553
+*** Selection String ***
+W80B0137
+Valid Selection. Process Continuing
+**ERROR** W80B0137 BLOCK: PSEUDO 0100170001 is inactive.
+End PO600 <1.72> FRI, JAN 16, 2026, 10:53 AM CPU = 0.0" Lg = 80
+END OF PROGRAM
+:FILE PELABELS=PELABELS.PERM.ADMIN;SHR
+:RUN /powerschool/app/prog/pe600.gnt
+Program PE600 <1.27> not executed due to previous FATAL error
+END OF PROGRAM
+:RUN /powerschool/app/prog/nu030.gnt
+Begin NU030 <1.27> FRI, JAN 16, 2026, 10:53 AM IFAS 7 /2553
+End NU030 <1.27> FRI, JAN 16, 2026, 10:53 AM CPU = 0.0" Lg = 80
+END OF PROGRAM
+:EOJ
+Fri 01/16/2026
+10:53 AM
+
+-- 6 of 12 --
+
+ISSUED/PRINTED BID/REQUISITION # BUYER CONTACT PHONE NUMBER
+DELIVERY HOURS
+VENDOR #
+P:
+F:
+VENDOR ACCT #/TERMS REQUESTOR/END USE SHIP VIA/FOB
+FROM/BILLTO: TO: SHIP TO:
+Page 1 of 1	ITEM NO ITEM DESCRIPTION QTY UNIT COST EXTENSION
+DELIVERY DUE DATE
+PURCHASE ORDER NUMBER
+(THIS NUMBER MUST APPEAR ON ALL
+SHIPPED MATERIAL AND CORRESPONDENCE)
+ACCOUNTS AND AMOUNTS Subtotal:
+Tax:
+Discount:
+Freight:
+PO Total:
+Elizabeth Bader
+W8000364
+0.00
+100,000.00
+0.00
+SEE BELOW
+W80B0137
+DBA COMPUDIRECT 3000 INC.
+23052 LAKE FOREST DR #D1
+LAGUNA HILLS, CA 92653
+NILOO@CD3K.COM
+MK MANAGEMENT INC
+100,000.00
+M.DEIBNER 714-628-4440
+Authorized Signature
+0101-0017-0-5640-0000-2420-430-21030800 3,079.05
+0101-0017-0-5640-0000-2420-430-40130800 96,920.95
+V80116379
+(949) 581-3036	07/01/25
+07/24/25
+ORANGE UNIFIED SCHOOL DISTRICT
+1401 NORTH HANDY ST
+ORANGE, CA 92867
+TECHNOLOGY SERVICES
+1401 N HANDY ST BLDG I
+ORANGE, CA 92867
+0001
+0002
+THIS IS AN OPEN PURCHASE ORDER FOR OFFSITE REPAIRS,
+RATES BASED ON ATTACHED RATE SHEET
+FOR THE PERIOD: 07/01/25 - 06/30/26
+AUTHORIZED SIGNATURES:
+BADER, LIZ
+LANE, DAVID
+NGUYEN, TAM
+CHANGE ORDER NO. 1
+TO UPDATE AUTHORIZED SIGNATURES:
+ADD:
+JOHNSON, CRYSTAL
+NO CHANGE TO PURCHASE ORDER TOTAL
+1
+1
+LT
+LT
+100,000.00
+0.00N
+100,000.00
+o Charge
+Instructions:
+Email purchasing@orangeusd.org for questions about this Purchase
+Order. Email accountspayable@orangeusd.org for questions about
+invoicing.
+Terms and Conditions: If an agreement is referred
+herein, then those terms & conditions prevail; otherwise,
+the District’s Purchase Order Terms & Conditions stated on
+https://www.orangeusd.org/departments/business-services/purchasing
+prevail. By accepting this PO, Vendor acknowledges these terms &
+conditions.
+
+-- 7 of 12 --
+
+.
+
+-- 8 of 12 --
+
+ISSUED/PRINTED BID/REQUISITION # BUYER CONTACT PHONE NUMBER
+DELIVERY HOURS
+VENDOR #
+P:
+F:
+VENDOR ACCT #/TERMS REQUESTOR/END USE SHIP VIA/FOB
+FROM/BILLTO: TO: SHIP TO:
+Page 1 of 1	ITEM NO ITEM DESCRIPTION QTY UNIT COST EXTENSION
+DELIVERY DUE DATE
+PURCHASE ORDER NUMBER
+(THIS NUMBER MUST APPEAR ON ALL
+SHIPPED MATERIAL AND CORRESPONDENCE)
+ACCOUNTS AND AMOUNTS Subtotal:
+Tax:
+Discount:
+Freight:
+PO Total:
+Elizabeth Bader
+W8000364
+0.00
+100,000.00
+0.00
+SEE BELOW
+W80B0137
+DBA COMPUDIRECT 3000 INC.
+23052 LAKE FOREST DR #D1
+LAGUNA HILLS, CA 92653
+NILOO@CD3K.COM
+MK MANAGEMENT INC
+100,000.00
+M.DEIBNER 714-628-4440
+Authorized Signature
+0101-0017-0-5640-0000-2420-430-21030800 100,000.00
+V80116379
+(949) 581-3036	07/01/25
+07/14/25
+ORANGE UNIFIED SCHOOL DISTRICT
+1401 NORTH HANDY ST
+ORANGE, CA 92867
+TECHNOLOGY SERVICES
+1401 N HANDY ST BLDG I
+ORANGE, CA 92867
+0001
+0002
+THIS IS AN OPEN PURCHASE ORDER FOR OFFSITE REPAIRS,
+RATES BASED ON ATTACHED RATE SHEET
+FOR THE PERIOD: 07/01/25 - 06/30/26
+AUTHORIZED SIGNATURES:
+BADER, LIZ
+LANE, DAVID
+NGUYEN, TAM
+CHANGE ORDER NO. 1
+TO UPDATE AUTHORIZED SIGNATURES:
+ADD:
+JOHNSON, CRYSTAL
+NO CHANGE TO PURCHASE ORDER TOTAL
+1
+1
+LT
+LT
+100,000.00
+0.00N
+100,000.00
+o Charge
+Instructions:
+Email purchasing@orangeusd.org for questions about this Purchase
+Order. Email accountspayable@orangeusd.org for questions about
+invoicing.
+Terms and Conditions: If an agreement is referred
+herein, then those terms & conditions prevail; otherwise,
+the District’s Purchase Order Terms & Conditions stated on
+https://www.orangeusd.org/departments/business-services/purchasing
+prevail. By accepting this PO, Vendor acknowledges these terms &
+conditions.
+
+-- 9 of 12 --
+
+Outlook
+25-26 PO Change Orders
+From Bader, Liz <ebader@orangeusd.org>
+Date Mon 7/7/2025 9:30 AM
+To purchasing <purchasing@orangeusd.org>
+Please make Authorized User Changes to the following POs:
+W80B0041 	Remove Alex Zamora
+W80B0042 	Add Crystal Johnson
+W80B0043 	Remove Alex Zamora
+W80B0118 	Add Crystal Johnson
+W80B0122 	Add Crystal Johnson
+W80B0124 	Add Crystal Johnson
+W80B0125 	Add Crystal Johnson
+W80B0126 	Add Crystal Johnson
+W80B0133 	Add Crystal Johnson
+W80B0135 	Add Crystal Johnson
+W80B0136 	Add Crystal Johnson
+W80B0137 	Add Crystal Johnson
+W80B0142 	Add Crystal Johnson
+W80B0145 	Add Crystal Johnson
+W80B0147 	Add Crystal Johnson
+Kind Regards,
+
+-- 10 of 12 --
+
+ISSUED/PRINTED BID/REQUISITION # BUYER CONTACT PHONE NUMBER
+DELIVERY HOURS
+VENDOR #
+P:
+F:
+VENDOR ACCT #/TERMS REQUESTOR/END USE SHIP VIA/FOB
+FROM/BILL TO: TO: SHIP TO:
+Page 1 of 1	ITEM NO ITEM DESCRIPTION QTY UNIT COST EXTENSION
+DELIVERY DUE DATE
+PURCHASE ORDER NUMBER
+(THIS NUMBER MUST APPEAR ON ALL
+SHIPPED MATERIAL AND CORRESPONDENCE)
+ACCOUNTS AND AMOUNTS Subtotal:
+Tax:
+Discount:
+Freight:
+PO Total:
+Elizabeth Bader
+W8000364
+0.00
+100,000.00
+0.00
+SEE BELOW
+W80B0137
+DBA COMPUDIRECT 3000 INC.
+23052 LAKE FOREST DR #D1
+LAGUNA HILLS, CA 92653
+NILOO@CD3K.COM
+MK MANAGEMENT INC
+100,000.00
+M.DEIBNER 714-628-4440
+Authorized Signature
+0101-0017-0-5640-0000-2420-430-21030800 100,000.00
+V80116379
+(949) 581-3036	07/01/25
+07/01/25
+ORANGE UNIFIED SCHOOL DISTRICT
+1401 NORTH HANDY ST
+ORANGE, CA 92867
+TECHNOLOGY SERVICES
+1401 N HANDY ST BLDG I
+ORANGE, CA 92867
+0001 THIS IS AN OPEN PURCHASE ORDER FOR OFFSITE REPAIRS,
+RATES BASED ON ATTACHED RATE SHEET
+FOR THE PERIOD: 07/01/25 - 06/30/26
+AUTHORIZED SIGNATURES:
+BADER, LIZ
+LANE, DAVID
+NGUYEN, TAM
+1 LT 100,000.00 100,000.00
+Instructions:
+Email purchasing@orangeusd.org for questions about this Purchase
+Order. Email accountspayable@orangeusd.org for questions about
+invoicing.
+Term s and Conditions: If an agreement is referred
+herein, then those terms & conditions prevail; otherwise,
+the District’s Purchase Order T erms & Conditions stated on
+https://www.orangeusd.org/departments/business-services/purchasing
+prevail. By accepting this PO, Vendor acknowledges these terms &
+conditions.
+
+-- 11 of 12 --
+
+32 Tesla Irvine CA 92618 Tel. 949 581 3036
+Cost sheet for Dynabook Tecra A40-K
+Set prices
+Replace broken screen 	$115
+Replace keyboard 	$88
+Battery replacement 	$55
+Misc repair 	$50 labor + parts
+USB board 	$19
+Hinge cap 	$5
+Power cable 	$15
+All prices are subject to e-waste / tax where applicable.
+________
+
+-- 12 of 12 --
+
