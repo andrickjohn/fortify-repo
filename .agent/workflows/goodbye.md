@@ -1,18 +1,14 @@
 ---
-description: cleanup and exit
----
-
----
 description: End of day / session cleanup
 ---
 
 1. Stop any running servers (Manual)
-   > Ctrl+C in terminal tabs.
+   > Ctrl+C in terminal tabs to stop development servers.
 
-2. Sync changes
+2. Execute Sync Script
    // turbo
-   `git add . && git commit -m "End of session save" && git push`
+   `python3 execution/git_sync.py "End of session save"`
 
-3. Check for uncommitted files
+3. Check status
    // turbo
    `git status`
