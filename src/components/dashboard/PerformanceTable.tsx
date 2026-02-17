@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import { Loader2, ChevronRight, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export function PerformanceTable() {
     const router = useRouter();
+    const supabase = createClient();
     const [contracts, setContracts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [expandedVendors, setExpandedVendors] = useState<Record<string, boolean>>({});

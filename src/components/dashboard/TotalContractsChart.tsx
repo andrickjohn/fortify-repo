@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import { Loader2, TrendingUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
@@ -30,6 +30,7 @@ ChartJS.register(
 
 export function TotalContractsChart() {
     const router = useRouter();
+    const supabase = createClient();
     const [chartData, setChartData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [growth, setGrowth] = useState(0);

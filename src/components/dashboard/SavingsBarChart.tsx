@@ -11,7 +11,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 
 ChartJS.register(
     CategoryScale,
@@ -23,6 +23,7 @@ ChartJS.register(
 );
 
 export function SavingsBarChart() {
+    const supabase = createClient();
     const [chartData, setChartData] = useState<any>(null);
     const [summary, setSummary] = useState({ total: 0, roi: "0.00" });
     const [isLoading, setIsLoading] = useState(true);

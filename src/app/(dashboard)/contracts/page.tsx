@@ -312,6 +312,9 @@ function ContractsPageContent() {
     const [selectedContractName, setSelectedContractName] = useState<string>("");
     const [selectedStatus, setSelectedStatus] = useState<string>("");
     const [selectedCost, setSelectedCost] = useState<number>(0);
+    const [selectedAnnualValue, setSelectedAnnualValue] = useState<number>(0);
+    const [selectedVendorName, setSelectedVendorName] = useState<string>("");
+    const [selectedVendorId, setSelectedVendorId] = useState<string>("");
     const [isAIModalOpen, setIsAIModalOpen] = useState(false);
 
     // API Config Check (Mocked for now - assume enabled if key present) -- set to TRUE for testing
@@ -331,6 +334,19 @@ function ContractsPageContent() {
         setSelectedContractName(contract.contract_name || "Unknown Contract");
         setSelectedStatus(contract.ai_status || "not_started");
         setSelectedCost(contract.ai_cost || 0);
+        setSelectedAnnualValue(contract.annual_value || 0);
+
+        // Extract vendor details safely
+        const vName = Array.isArray(contract.vendors)
+            ? contract.vendors[0]?.vendor_name
+            : contract.vendors?.vendor_name || 'Unknown Vendor';
+        const vId = Array.isArray(contract.vendors)
+            ? contract.vendors[0]?.id
+            : contract.vendors?.id; // Assuming id is available in joined data or we need to ensure it is selected
+
+        setSelectedVendorName(vName);
+        setSelectedVendorId(vId); // Might be undefined if not selected, but okay
+
         setIsAIModalOpen(true);
     };
 
@@ -758,30 +774,32 @@ function ContractsPageContent() {
                                                         <div className="flex flex-col gap-1.5 w-max">
                                                             <button
                                                                 onClick={(e) => openAIModal(mainContract, e)}
-                                                                disabled={!isAISetup && mainContract.ai_status === 'not_started'}
+                                                                disabled={!isAISetup && (mainContract.ai_status === 'not_started' || mainContract.ai_status === 'rejected')}
                                                                 className={`
                                                                     flex items-center gap-2 px-3 py-1.5 rounded-lg border text-[10px] font-bold transition-all shadow-sm
-                                                                    ${!isAISetup && mainContract.ai_status === 'not_started'
+                                                                    ${(!isAISetup && mainContract.ai_status === 'not_started')
                                                                         ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-70'
                                                                         : mainContract.ai_status === 'completed' || mainContract.ai_status === 'approved'
                                                                             ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
-                                                                            : mainContract.ai_status === 'in_progress'
-                                                                                ? 'bg-blue-50 text-blue-700 border-blue-200'
-                                                                                : 'bg-white text-slate-600 border-slate-200 hover:border-blue-400 hover:text-blue-600'
+                                                                            : mainContract.ai_status === 'negotiation_started'
+                                                                                ? 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100'
+                                                                                : mainContract.ai_status === 'in_progress'
+                                                                                    ? 'bg-blue-50 text-blue-700 border-blue-200'
+                                                                                    : 'bg-white text-slate-600 border-slate-200 hover:border-blue-400 hover:text-blue-600'
                                                                     }
                                                                 `}
                                                             >
                                                                 <Bot size={14} />
-                                                                {mainContract.ai_status === 'not_started' && (isAISetup ? 'Start Analysis' : 'AI Not Configured')}
+                                                                {(mainContract.ai_status === 'not_started' || mainContract.ai_status === 'rejected') && (isAISetup ? 'Start Analysis' : 'AI Not Configured')}
                                                                 {mainContract.ai_status === 'in_progress' && 'Analyzing...'}
                                                                 {mainContract.ai_status === 'completed' && 'View Recommendation'}
                                                                 {mainContract.ai_status === 'approved' && 'Approved'}
-                                                                {mainContract.ai_status === 'rejected' && 'Rejected'}
+                                                                {mainContract.ai_status === 'negotiation_started' && 'Negotiation Created'}
                                                             </button>
 
                                                             {/* Status Bar / Progress Indicator */}
                                                             {mainContract.ai_status === 'in_progress' && (
-                                                                <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                                                                <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-1.5">
                                                                     <div className="h-full bg-blue-500 animate-[progress_2s_ease-in-out_infinite] w-full origin-left"></div>
                                                                 </div>
                                                             )}
@@ -939,6 +957,9 @@ function ContractsPageContent() {
                     contractName={selectedContractName}
                     currentStatus={selectedStatus}
                     currentCost={selectedCost}
+                    annualValue={selectedAnnualValue}
+                    vendorName={selectedVendorName}
+                    vendorId={selectedVendorId}
                     onUpdate={handleAIUpdate}
                 />
             )}

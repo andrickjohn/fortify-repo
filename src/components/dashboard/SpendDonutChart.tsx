@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartEvent, ActiveElement } from 'chart.js';
 import { Doughnut, getElementAtEvent } from 'react-chartjs-2';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -11,6 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function SpendDonutChart() {
     const router = useRouter();
+    const supabase = createClient();
     const chartRef = useRef(null);
     const [chartData, setChartData] = useState<any>(null);
     const [loading, setLoading] = useState(true);

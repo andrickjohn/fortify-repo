@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { AlertTriangle, Clock, TrendingUp, ChevronRight } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 
 export function RiskAlerts() {
+    const supabase = createClient();
     const [counts, setCounts] = useState({
         expired: 0,
         expiring: 0,
