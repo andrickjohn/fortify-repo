@@ -60,10 +60,12 @@ interface Negotiation {
     title: string;
     vendor: string;
     value: number;
-    stage: string; // Updated to be flexible string to match DB potentially
+    stage: string;
     startDate: string;
     owner: string;
     description?: string;
+    ai_recommendations?: any; // Added for email draft generation
+    ai_cost?: number;         // Added for UI display
     email_draft?: {
         subject: string;
         body: string;
@@ -168,6 +170,8 @@ export default function NegotiationsPage() {
                     *,
                     contracts (
                         contract_name,
+                        ai_recommendations,
+                        ai_cost,
                         vendors (
                             vendor_name
                         )
@@ -177,18 +181,12 @@ export default function NegotiationsPage() {
 
             if (data) {
                 const mapped: Negotiation[] = data.map((n: any) => {
-                    // Safe access to nested vendor name
                     const vendorName = n.contracts?.vendors?.vendor_name || n.contracts?.contract_name || 'Unknown Vendor';
-
-                    // Use the dedicated email_draft column
                     let emailDraft = n.email_draft;
-
-                    // Map Status to Stage
                     let stage = 'Draft';
                     if (n.status === 'identified') stage = 'Draft';
                     else if (n.status === 'negotiation_started') stage = 'Negotiating';
                     else if (STAGES.includes(n.status)) stage = n.status;
-                    else stage = 'Draft';
 
                     return {
                         id: n.id,
@@ -198,6 +196,8 @@ export default function NegotiationsPage() {
                         stage: stage,
                         startDate: n.created_at || new Date().toISOString(),
                         owner: 'Me',
+                        ai_recommendations: n.contracts?.ai_recommendations,
+                        ai_cost: n.contracts?.ai_cost,
                         email_draft: emailDraft
                     };
                 });
@@ -471,10 +471,25 @@ export default function NegotiationsPage() {
                                                     body: editingItem.email_draft.body
                                                 });
                                             } else {
+                                                // DETAILED TEMPLATE GENERATION
+                                                const contractName = editingItem?.title.replace('Negotiation: ', '') || 'Contract';
+                                                const vendorName = editingItem?.vendor || 'Vendor';
+                                                const savings = editingItem?.ai_recommendations?.savings_opportunity || 15;
+
+                                                const subject = `Regarding ${contractName} - Renewal Discussion`;
+                                                const body = `Dear ${vendorName},\n\n` +
+                                                    `I hope this email finds you well.\n\n` +
+                                                    `We are currently reviewing our agreement for ${contractName} and have identified a few areas we would like to discuss before moving forward with a renewal.\n\n` +
+                                                    `Specifically, based on current market benchmarks, we are targeting a ${savings}% adjustment to the annual rate. We are also looking to standardize our liability clauses.\n\n` +
+                                                    `Would you be open to a brief call next week to discuss this?\n\n` +
+                                                    `Best regards,\n\n` +
+                                                    `[Your Name]\n` +
+                                                    `Fortify User`;
+
                                                 setEmailForm({
                                                     to: '',
-                                                    subject: `Regarding ${editingItem?.title || 'Contract'}`,
-                                                    body: `Hi Team,\n\nWe would like to discuss the renewal of ${editingItem?.title || 'our contract'}.\n\nBest,\nMe`
+                                                    subject: subject,
+                                                    body: body
                                                 });
                                             }
                                             setViewMode('email');
@@ -482,18 +497,26 @@ export default function NegotiationsPage() {
                                         className="w-full py-4 rounded-xl border-2 border-dashed border-purple-200 bg-purple-50 text-purple-600 font-bold hover:bg-purple-100 hover:border-purple-300 transition-all flex items-center justify-center gap-2"
                                     >
                                         <Send size={18} />
-                                        Manage Email Draft
+                                        <span>Manage Email Draft</span>
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                            <div className="p-6 space-y-6 overflow-y-auto flex-1 bg-white">
-                                <div className="bg-yellow-50 border border-yellow-100 rounded-xl p-4 flex items-start gap-3">
+                            <div className="p-6 space-y-6 overflow-y-auto flex-1 bg-white relative">
+                                {/* Cost Badge - Top Right */}
+                                {editingItem?.ai_cost !== undefined && editingItem.ai_cost > 0 && (
+                                    <div className="absolute top-6 right-6 flex items-center gap-1 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-100 z-10">
+                                        <DollarSign size={12} />
+                                        Cost: ${editingItem.ai_cost.toFixed(4)}
+                                    </div>
+                                )}
+
+                                <div className="bg-yellow-50 border border-yellow-100 rounded-xl p-4 flex items-start gap-3 mt-8"> {/* Added top margin for badge space */}
                                     <Sparkles className="text-yellow-600 flex-shrink-0 mt-0.5" size={18} />
                                     <div>
                                         <h5 className="text-sm font-bold text-yellow-800">AI Negotiation Draft</h5>
                                         <p className="text-xs text-yellow-700 mt-1">
-                                            We've prepared this draft based on the identified savings opportunity. Review and edit before sending to key stakeholders.
+                                            We&apos;ve drafted this email based on the identified {editingItem?.ai_recommendations?.savings_opportunity || 15}% savings opportunity. Review and edit before sending.
                                         </p>
                                     </div>
                                 </div>
@@ -506,7 +529,7 @@ export default function NegotiationsPage() {
                                                 className="font-mono bg-white px-2 py-0.5 rounded border border-slate-200 text-xs text-slate-900 w-full focus:outline-none focus:border-blue-500"
                                                 value={emailForm.to}
                                                 onChange={(e) => setEmailForm({ ...emailForm, to: e.target.value })}
-                                                placeholder="vendor@example.com"
+                                                placeholder={`${editingItem?.vendor?.toLowerCase().replace(/\s/g, '.') || 'vendor'}@example.com`}
                                             />
                                         </div>
                                         <div className="flex items-center gap-2 text-sm">
@@ -587,7 +610,7 @@ export default function NegotiationsPage() {
                                             }
                                             setViewMode('details');
                                         }}
-                                        className="px-6 py-3 rounded-xl font-bold text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 transition-all"
+                                        className="flex-1 px-4 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-50 transition-colors"
                                     >
                                         Back
                                     </button>
@@ -630,7 +653,7 @@ export default function NegotiationsPage() {
                                             className="bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition-all shadow-lg shadow-purple-100 flex items-center gap-2"
                                         >
                                             <Send size={18} />
-                                            <span>Send Email</span>
+                                            <span>Approve & Create Negotiation</span>
                                         </button>
                                     </div>
                                 </>
@@ -642,6 +665,8 @@ export default function NegotiationsPage() {
         </div>
     );
 }
+
+
 
 // Helper Column
 import { useDroppable } from "@dnd-kit/core";
