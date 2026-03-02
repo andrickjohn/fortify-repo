@@ -30,6 +30,7 @@ Welcome back! Duplicate contract upload logic is successfully deployed. Our next
 | Compliance| None | SOC 2 / FERPA | High |
 
 **Next Steps Recommendation:**
+0. **Bug Fix**: Fix new uploads coming in under "Unknown Vendor".
 1. **Implement `activity_log`**: Add the audit log table and triggers (critical for compliance).
 2. **Security Headers**: Update `vercel.json` with HSTS and CSP.
 3. **SSO Integration**: Research Supabase SAML options for school districts.
