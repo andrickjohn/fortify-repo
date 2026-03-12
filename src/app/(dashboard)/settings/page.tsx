@@ -17,6 +17,7 @@ import { SecuritySettings } from "@/components/settings/SecuritySettings";
 import { DataIntegrations } from "@/components/settings/DataIntegrations";
 import { OrgChart } from "@/components/settings/OrgChart";
 import { SchoolsList } from "@/components/settings/SchoolsList";
+import { ManageDistricts } from "@/components/settings/ManageDistricts";
 
 export default function SettingsPage() {
     const supabase = createClient();
@@ -38,17 +39,29 @@ export default function SettingsPage() {
 
     // Dynamically insert Users/OrgChart section for admins
     const sections = React.useMemo(() => {
+        const base = [
+            { id: 'profile', label: 'District Profile', icon: User },
+        ];
+
+        // Super admin gets Manage Districts at the top
+        if (userRole === 'super_admin') {
+            base.unshift({ id: 'manage_districts', label: '🏫 Manage Districts', icon: Layers });
+        }
+
         if (userRole === 'super_admin' || userRole === 'district_admin') {
-            return [
-                { id: 'profile', label: 'District Profile', icon: User },
+            base.push(
                 { id: 'users', label: 'Team Members', icon: Users },
                 { id: 'org_chart', label: 'Org Chart', icon: Layers },
-                { id: 'notifications', label: 'Notifications', icon: Bell },
-                { id: 'security', label: 'Security & Access', icon: Shield },
-                { id: 'integrations', label: 'Data Integrations', icon: Database },
-            ];
+            );
         }
-        return baseSections;
+
+        base.push(
+            { id: 'notifications', label: 'Notifications', icon: Bell },
+            { id: 'security', label: 'Security & Access', icon: Shield },
+            { id: 'integrations', label: 'Data Integrations', icon: Database },
+        );
+
+        return base;
     }, [userRole]);
 
     useEffect(() => {
@@ -331,7 +344,11 @@ export default function SettingsPage() {
                         />
                     )}
 
-                    {activeSection !== 'profile' && activeSection !== 'users' && activeSection !== 'org_chart' && activeSection !== 'notifications' && activeSection !== 'security' && activeSection !== 'integrations' && (
+                    {activeSection === 'manage_districts' && (
+                        <ManageDistricts />
+                    )}
+
+                    {activeSection !== 'profile' && activeSection !== 'users' && activeSection !== 'org_chart' && activeSection !== 'notifications' && activeSection !== 'security' && activeSection !== 'integrations' && activeSection !== 'manage_districts' && (
                         <div className="text-center py-20">
                             <div className="mx-auto w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
                                 {sections.find(s => s.id === activeSection)?.icon && React.createElement(sections.find(s => s.id === activeSection)!.icon, { size: 32, className: "text-slate-300" })}

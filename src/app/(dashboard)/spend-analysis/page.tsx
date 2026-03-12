@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useDistrictContext } from "@/lib/DistrictContext";
 import {
     BarChart3,
     TrendingUp,
@@ -34,6 +35,7 @@ ChartJS.register(
 
 export default function SpendAnalysisPage() {
     const router = useRouter();
+    const { activeDistrict } = useDistrictContext();
     const [isLoading, setIsLoading] = useState(true);
     const [stats, setStats] = useState({
         totalSpend: 0,
@@ -46,6 +48,7 @@ export default function SpendAnalysisPage() {
 
     useEffect(() => {
         async function fetchData() {
+            if (!activeDistrict?.id) return;
             setIsLoading(true);
             try {
                 const { data: contracts, error } = await supabase
@@ -57,7 +60,8 @@ export default function SpendAnalysisPage() {
                             vendor_name,
                             category
                         )
-                    `);
+                    `)
+                    .eq('district_id', activeDistrict.id);
 
                 if (error) throw error;
 
@@ -123,7 +127,7 @@ export default function SpendAnalysisPage() {
         }
 
         fetchData();
-    }, []);
+    }, [activeDistrict?.id]);
 
     const handleVendorClick = (_: any, elements: any[]) => {
         if (!elements.length || !vendorData) return;

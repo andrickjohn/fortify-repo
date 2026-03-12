@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import { useDistrictContext } from "@/lib/DistrictContext";
 import {
     Users,
     Plus,
@@ -17,6 +18,7 @@ import {
     Send,
     Sparkles
 } from "lucide-react";
+import { CrossDistrictBenchmark } from "@/components/dashboard/CrossDistrictBenchmark";
 import {
     DndContext,
     closestCenter,
@@ -137,6 +139,7 @@ export default function NegotiationsPage() {
     const [activeId, setActiveId] = useState<string | null>(null);
     const [vendorOptions, setVendorOptions] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
+    const { activeDistrict, isSuperAdmin } = useDistrictContext();
 
     // Modal View State
     const [viewMode, setViewMode] = useState<'details' | 'email'>('details');
@@ -157,9 +160,11 @@ export default function NegotiationsPage() {
 
     // Initial Load
     useEffect(() => {
-        fetchNegotiations();
-        fetchVendors();
-    }, []);
+        if (activeDistrict?.id) {
+            fetchNegotiations();
+            fetchVendors();
+        }
+    }, [activeDistrict?.id]);
 
     const fetchNegotiations = async () => {
         setLoading(true);
@@ -177,6 +182,7 @@ export default function NegotiationsPage() {
                         )
                     )
                 `)
+                .eq('district_id', activeDistrict!.id)
                 .order('created_at', { ascending: false });
 
             if (data) {
@@ -215,6 +221,7 @@ export default function NegotiationsPage() {
             const { data, error } = await supabase
                 .from('vendors')
                 .select('vendor_name')
+                .eq('district_id', activeDistrict!.id)
                 .order('vendor_name');
 
             if (data) {
@@ -458,6 +465,17 @@ export default function NegotiationsPage() {
                                         {STAGES.map(s => <option key={s} value={s}>{s}</option>)}
                                     </select>
                                 </div>
+
+                                {/* Cross-District Benchmarking — Super Admin Only */}
+                                {isSuperAdmin && editingItem && activeDistrict?.id && (
+                                    <div className="pt-4 border-t border-slate-100">
+                                        <CrossDistrictBenchmark
+                                            vendorName={editingItem.vendor}
+                                            currentDistrictId={activeDistrict.id}
+                                            currentAnnualValue={editingItem.value}
+                                        />
+                                    </div>
+                                )}
 
                                 {/* Email Access Button */}
                                 <div className="pt-4 border-t border-slate-100">

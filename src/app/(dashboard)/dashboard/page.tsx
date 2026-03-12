@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
+import { useDistrictContext } from "@/lib/DistrictContext";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
@@ -45,6 +46,7 @@ import { ContractStatusChart } from "@/components/dashboard/ContractStatusChart"
 
 export default function Dashboard() {
     const supabase = createClient();
+    const { activeDistrict, isSuperAdmin } = useDistrictContext();
     const [isConfiguring, setIsConfiguring] = useState(false);
     const [activeId, setActiveId] = useState<string | null>(null);
     const [widgets, setWidgets] = useState([
@@ -74,8 +76,6 @@ export default function Dashboard() {
         activeVendors: 0
     });
 
-    const [district, setDistrict] = useState<any>(null);
-
     const [isLoading, setIsLoading] = useState(true);
     const [fetchError, setFetchError] = useState<string | null>(null);
     const [mounted, setMounted] = useState(false);
@@ -84,38 +84,36 @@ export default function Dashboard() {
         setMounted(true);
 
         async function fetchDashboardData() {
+            if (!activeDistrict?.id) return;
             setIsLoading(true);
             setFetchError(null);
             try {
-                // Fetch contracts for stats
+                // Fetch contracts for stats — scoped to active district
                 const { data: contracts, error: cError } = await supabase
                     .from('contracts')
-                    .select('status, annual_value');
+                    .select('status, annual_value')
+                    .eq('district_id', activeDistrict.id);
 
                 if (cError) throw cError;
 
-                // Fetch vendor count
+                // Fetch vendor count — scoped to active district
                 const { count: vendorCount, error: vError } = await supabase
                     .from('vendors')
-                    .select('*', { count: 'exact', head: true });
+                    .select('*', { count: 'exact', head: true })
+                    .eq('district_id', activeDistrict.id);
 
                 if (vError) throw vError;
 
-                // Fetch District Details for Header
+                // Fetch user dashboard config
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
-                    // Fetch user profile including dashboard_config
                     const { data: profile } = await supabase
                         .from('users')
-                        .select('district_id, dashboard_config')
+                        .select('dashboard_config')
                         .eq('id', user.id)
                         .single();
 
                     if (profile) {
-                        if (profile.district_id) {
-                            const { data: districtData } = await supabase.from('districts').select('*').eq('id', profile.district_id).single();
-                            setDistrict(districtData);
-                        }
 
                         // Load saved widget configuration if present
                         if (profile.dashboard_config && Array.isArray(profile.dashboard_config) && profile.dashboard_config.length > 0) {
@@ -164,7 +162,7 @@ export default function Dashboard() {
         }
 
         fetchDashboardData();
-    }, [supabase]);
+    }, [supabase, activeDistrict?.id]);
 
     // Save configuration to DB whenever widgets change
     useEffect(() => {
@@ -228,18 +226,18 @@ export default function Dashboard() {
                     <h1 className="text-2xl font-black tracking-tight uppercase">Contract Intelligence Dashboard</h1>
                 </div>
                 <p className="text-blue-100 text-xs font-medium tracking-wide">
-                    Orange Unified School District - Real-time Contract Performance & Efficiency Analysis
+                    {activeDistrict?.name || "Loading..."} - Real-time Contract Performance & Efficiency Analysis
                 </p>
 
 
                 {/* District Info Strip */}
                 <div className="grid grid-cols-5 gap-4 mt-8">
                     {[
-                        { label: "District Type", value: district?.settings_json?.district_type || "Unified K-12", icon: Building2 },
-                        { label: "Enrollment", value: district?.enrollment_current ? Number(district.enrollment_current).toLocaleString() : "0", icon: Users },
-                        { label: "Total Staff", value: district?.settings_json?.total_staff || "0", icon: Hash },
-                        { label: "School Sites", value: district?.settings_json?.school_sites || "0", icon: School },
-                        { label: "County", value: district?.settings_json?.county || "Orange", icon: MapPin },
+                        { label: "District Type", value: activeDistrict?.settings_json?.district_type || "Unified K-12", icon: Building2 },
+                        { label: "Enrollment", value: activeDistrict?.enrollment_current ? Number(activeDistrict.enrollment_current).toLocaleString() : "0", icon: Users },
+                        { label: "Total Staff", value: activeDistrict?.settings_json?.total_staff || "0", icon: Hash },
+                        { label: "School Sites", value: activeDistrict?.settings_json?.school_sites || "0", icon: School },
+                        { label: "County", value: activeDistrict?.settings_json?.county || "—", icon: MapPin },
                     ].map((item, i) => (
                         <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
                             <h3 className="text-[9px] font-bold text-blue-200 uppercase tracking-widest mb-1">{item.label}</h3>

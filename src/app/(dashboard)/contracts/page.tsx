@@ -28,6 +28,7 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { AIAnalysisModal } from "@/components/dashboard/AIAnalysisModal";
 import { DuplicateResolutionModal } from "@/components/dashboard/DuplicateResolutionModal";
+import { useDistrictContext } from "@/lib/DistrictContext";
 
 import { SpendDonutChart } from "@/components/dashboard/SpendDonutChart";
 import { ContractStatusChart } from "@/components/dashboard/ContractStatusChart";
@@ -60,31 +61,14 @@ const PDFIngestion = ({
   onUploadComplete: () => void;
 }) => {
   const supabase = createClient();
+  const { activeDistrict } = useDistrictContext();
+  const districtId = activeDistrict?.id || null;
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [districtId, setDistrictId] = useState<string | null>(null);
   const [duplicateUploadData, setDuplicateUploadData] = useState<{
     newFile: File;
     existingContract: any;
   } | null>(null);
-
-  useEffect(() => {
-    const getDistrict = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { data: profile } = await supabase
-        .from("users")
-        .select("district_id")
-        .eq("id", user.id)
-        .single();
-
-      if (profile) setDistrictId(profile.district_id);
-    };
-    getDistrict();
-  }, []);
 
   // Use dynamic import to avoid SSR issues with DOMMatrix
   const extractTextFromPDF = async (file: File): Promise<string> => {
@@ -375,6 +359,7 @@ export default function ContractsPage() {
 // --- Main Page Component with Suspense ---
 function ContractsPageContent() {
   const supabase = createClient();
+  const { activeDistrict } = useDistrictContext();
   const searchParams = useSearchParams();
   const initialStatus = searchParams.get("status");
   const initialCategory = searchParams.get("category");
@@ -498,6 +483,7 @@ function ContractsPageContent() {
                             )
                             `,
         )
+        .eq('district_id', activeDistrict!.id)
         .order("created_at", { ascending: false });
 
       // Apply Filters
@@ -530,6 +516,7 @@ function ContractsPageContent() {
                     )
                 `,
           )
+          .eq('district_id', activeDistrict?.id || '')
           .eq("vendors.category", categoryFilter)
           .order("created_at", { ascending: false });
 
@@ -609,7 +596,7 @@ function ContractsPageContent() {
     } else if (districtStatus === "disconnected") {
       setIsLoading(false); // Stop loading spinner if we know we're disconnected
     }
-  }, [filter, categoryFilter, showGhost, searchQuery, districtStatus]); // Re-fetch when filters change
+  }, [filter, categoryFilter, showGhost, searchQuery, districtStatus, activeDistrict?.id]); // Re-fetch when filters change
 
   // Grouping Logic
   const groupedContracts = React.useMemo(() => {

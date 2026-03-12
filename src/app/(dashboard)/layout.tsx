@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import { DistrictProvider, useDistrictContext } from "@/lib/DistrictContext";
+import type { District } from "@/lib/DistrictContext";
 import {
     LayoutDashboard,
     FileText,
@@ -13,51 +15,35 @@ import {
     TrendingUp,
     Settings,
     LogOut,
+    ChevronDown,
+    Check,
+    Globe,
     Shield
 } from "lucide-react";
 
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <DistrictProvider>
+            <DashboardLayoutInner>{children}</DashboardLayoutInner>
+        </DistrictProvider>
+    );
+}
+
+function DashboardLayoutInner({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [supportEmail, setSupportEmail] = useState("support@fortify.app");
     const supabase = createClient();
+    const {
+        activeDistrict,
+        setActiveDistrict,
+        allDistricts,
+        isSuperAdmin,
+        isLoading: districtLoading,
+    } = useDistrictContext();
 
-    useEffect(() => {
-        async function checkRole() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                // Update last_login on every dashboard visit
-                await supabase
-                    .from('users')
-                    .update({ last_login: new Date().toISOString() })
-                    .eq('id', user.id);
+    const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
 
-                const { data } = await supabase
-                    .from('users')
-                    .select('role, district_id')
-                    .eq('id', user.id)
-                    .single();
-
-                if (data?.role === 'super_admin' || data?.role === 'district_admin') {
-                    setIsAdmin(true);
-                }
-
-                if (data?.district_id) {
-                    const { data: district } = await supabase
-                        .from('districts')
-                        .select('settings_json')
-                        .eq('id', data.district_id)
-                        .single();
-
-                    if (district?.settings_json?.support_email) {
-                        setSupportEmail(district.settings_json.support_email);
-                    }
-                }
-            }
-        }
-        checkRole();
-    }, [supabase]);
+    const supportEmail = activeDistrict?.settings_json?.support_email || "support@fortify.app";
 
     const menuItems = [
         { name: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
@@ -70,6 +56,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const handleLogout = async () => {
         await supabase.auth.signOut();
         window.location.href = '/login';
+    };
+
+    const handleSwitchDistrict = (district: District) => {
+        setActiveDistrict(district);
+        setIsSwitcherOpen(false);
     };
 
     return (
@@ -89,6 +80,87 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </div>
                     </Link>
                 </div>
+
+                {/* District Hierarchy — Super Admin Only */}
+                {isSuperAdmin && (
+                    <div className="px-6 mb-4 space-y-3">
+                        {/* Super Admin Role Badge */}
+                        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl px-4 py-2.5 flex items-center gap-2.5">
+                            <div className="p-1.5 bg-amber-100 rounded-lg">
+                                <Shield size={14} className="text-amber-600" />
+                            </div>
+                            <div>
+                                <p className="text-[9px] font-black text-amber-500 uppercase tracking-widest">Super Admin</p>
+                                <p className="text-[10px] text-amber-600 font-medium">
+                                    {allDistricts.length} district{allDistricts.length !== 1 ? "s" : ""} · Full access
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Active District Selector */}
+                        <div className="relative">
+                            <button
+                                onClick={() => setIsSwitcherOpen(!isSwitcherOpen)}
+                                className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100 rounded-xl hover:border-indigo-300 hover:shadow-sm transition-all group"
+                            >
+                                <div className="flex items-center space-x-3 min-w-0">
+                                    <div className="relative flex-shrink-0">
+                                        <div className="w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-emerald-200" />
+                                        <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-40" />
+                                    </div>
+                                    <div className="text-left min-w-0">
+                                        <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-widest">Active District</p>
+                                        <p className="text-sm font-bold text-slate-900 truncate">
+                                            {activeDistrict?.name || "Select District..."}
+                                        </p>
+                                    </div>
+                                </div>
+                                <ChevronDown
+                                    size={16}
+                                    className={`text-indigo-400 transition-transform flex-shrink-0 ${isSwitcherOpen ? "rotate-180" : ""}`}
+                                />
+                            </button>
+
+                            {isSwitcherOpen && (
+                                <>
+                                    <div
+                                        className="fixed inset-0 z-40"
+                                        onClick={() => setIsSwitcherOpen(false)}
+                                    />
+                                    <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-64 overflow-y-auto">
+                                        <div className="p-2">
+                                            <div className="px-3 py-2 flex items-center gap-2">
+                                                <Globe size={12} className="text-indigo-400" />
+                                                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Switch District</span>
+                                            </div>
+                                            {allDistricts.map((district) => (
+                                                <button
+                                                    key={district.id}
+                                                    onClick={() => handleSwitchDistrict(district)}
+                                                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left transition-all ${
+                                                        activeDistrict?.id === district.id
+                                                            ? "bg-indigo-50 text-indigo-700"
+                                                            : "hover:bg-slate-50 text-slate-700"
+                                                    }`}
+                                                >
+                                                    <div className="min-w-0">
+                                                        <p className="text-sm font-bold truncate">{district.name}</p>
+                                                        <p className="text-[10px] text-slate-400">
+                                                            {district.enrollment_current?.toLocaleString() || "—"} students
+                                                        </p>
+                                                    </div>
+                                                    {activeDistrict?.id === district.id && (
+                                                        <Check size={16} className="text-indigo-600 flex-shrink-0" />
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                )}
 
                 <nav className="flex-1 px-6 space-y-1 mt-4">
                     {menuItems.map((item) => (
@@ -124,7 +196,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
                     <div className="mt-8 bg-slate-900 rounded-2xl p-4 text-white relative overflow-hidden group">
                         <div className="relative z-10">
-                            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Enterprise Plan</p>
+                            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
+                                {activeDistrict?.subscription_tier?.toUpperCase() || "Enterprise"} Plan
+                            </p>
                             <p className="text-sm font-bold mt-1">Priority Support</p>
                             <a href={`mailto:${supportEmail}?subject=Support Request`} className="mt-3 inline-block bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">
                                 Contact Support
