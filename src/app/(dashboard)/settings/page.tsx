@@ -72,27 +72,26 @@ export default function SettingsPage() {
                 if (!user) return;
                 setUserID(user.id);
 
-                // 2. Get user profile
-                const { data: userProfile, error: profileError } = await supabase
+                // 2. Get user profile (may not exist yet for brand new users)
+                const { data: userProfile } = await supabase
                     .from('users')
                     .select('district_id, role, settings_json')
                     .eq('id', user.id)
-                    .single();
+                    .maybeSingle();  // maybeSingle returns null instead of throwing if no row
 
-                if (profileError) throw profileError;
-                setUserRole(userProfile?.role);
+                // Profile may be null for brand-new users — that's OK, show onboarding UI
+                setUserRole(userProfile?.role ?? null);
                 setUserSettings(userProfile?.settings_json || {});
 
                 if (userProfile?.district_id) {
                     // 3. Get district details
-                    const { data: districtData, error: districtError } = await supabase
+                    const { data: districtData } = await supabase
                         .from('districts')
                         .select('*')
                         .eq('id', userProfile.district_id)
-                        .single();
+                        .maybeSingle();
 
-                    if (districtError) throw districtError;
-                    setDistrict(districtData);
+                    if (districtData) setDistrict(districtData);
                 }
             } catch (err: any) {
                 console.error('Error fetching settings:', err);
@@ -222,9 +221,20 @@ export default function SettingsPage() {
                             )}
 
                             {!district ? (
-                                <div className="text-center py-12 text-slate-500">
-                                    <p>No district profile found.</p>
-                                    <p className="text-xs mt-2">Please contact support or run the account fix script.</p>
+                                <div className="flex flex-col items-center justify-center py-16 text-center">
+                                    <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                                        <Settings size={28} className="text-blue-400" />
+                                    </div>
+                                    <h3 className="text-lg font-black text-slate-900">Account Pending District Assignment</h3>
+                                    <p className="text-sm text-slate-500 mt-2 max-w-sm">
+                                        Your account has been created. A Fortify administrator will assign you to a district shortly.
+                                    </p>
+                                    <p className="text-sm text-slate-500 mt-1">
+                                        Once assigned, your district settings will appear here.
+                                    </p>
+                                    <div className="mt-6 bg-blue-50 rounded-xl px-5 py-3 text-sm text-blue-600 font-medium">
+                                        Need immediate access? Contact <strong>support@fortifypartners.com</strong>
+                                    </div>
                                 </div>
                             ) : (
                                 <form onSubmit={handleSave} className="space-y-6">
