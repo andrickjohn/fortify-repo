@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/client';
 import { useEffect, useState } from 'react';
-import { Shield, User, Mail, Calendar, Plus, X, Loader2, Trash2, Building2 } from 'lucide-react';
+import { Shield, User, Mail, Calendar, Plus, X, Loader2, Trash2, Building2, AlertCircle } from 'lucide-react';
 
 interface UserProfile {
     id: string;
@@ -39,7 +39,7 @@ export function UserManagement() {
 
     // Edit Modal State
     const [editingUser, setEditingUser] = useState<UserProfile | null>(null);
-    const [editForm, setEditForm] = useState({ full_name: '', organization: '', role: '' });
+    const [editForm, setEditForm] = useState({ full_name: '', organization: '', role: '', district_id: '' });
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export function UserManagement() {
                 .from('users')
                 .select('role, district_id')
                 .eq('id', user.id)
-                .single();
+                .maybeSingle();
 
             if (currentUserProfile) {
                 setCurrentUserRole(currentUserProfile.role);
@@ -84,7 +84,7 @@ export function UserManagement() {
             let usersError;
 
             if (currentUserProfile.role === 'super_admin') {
-                // Super admin sees ALL users across all districts
+                // Super admin sees ALL users across all districts (including unassigned)
                 const result = await supabase
                     .from('users')
                     .select('*, districts(name)')
@@ -110,6 +110,21 @@ export function UserManagement() {
             setLoading(false);
         }
     }
+
+    // Assign a pending user to a district + role
+    const handleAssignUser = async (userId: string, districtId: string, role: string) => {
+        try {
+            const { error } = await supabase
+                .from('users')
+                .update({ district_id: districtId, role })
+                .eq('id', userId);
+            if (error) throw error;
+            fetchUsers();
+        } catch (err: any) {
+            setError('Failed to assign user: ' + err.message);
+        }
+    };
+
 
     const handleInviteOrCreate = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -233,7 +248,8 @@ export function UserManagement() {
         setEditForm({
             full_name: user.full_name || '',
             organization: user.organization || '',
-            role: user.role
+            role: user.role,
+            district_id: user.district_id || ''
         });
     };
 
@@ -249,15 +265,16 @@ export function UserManagement() {
                 .update({
                     full_name: editForm.full_name,
                     organization: editForm.organization,
-                    role: editForm.role
+                    role: editForm.role,
+                    district_id: editForm.district_id || null
                 })
                 .eq('id', editingUser.id);
 
             if (error) throw error;
 
-            // Update local state
-            setUsers(users.map(u => u.id === editingUser.id ? { ...u, ...editForm } : u));
+            // Update local state - actually it's better to refetch to get the full district name
             setEditingUser(null);
+            fetchUsers();
         } catch (err: any) {
             setError(err.message || "Failed to update user");
         } finally {
@@ -283,64 +300,109 @@ export function UserManagement() {
             </div>
 
             <div className="space-y-4">
-                {users.map((user) => (
-                    <div key={user.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border border-slate-200 shrink-0">
-                                <User className="text-slate-400" size={20} />
-                            </div>
-                            <div>
-                                <div className="flex items-center gap-2">
-                                    <span className="font-bold text-slate-900 text-sm">
-                                        {user.full_name || user.email}
-                                    </span>
-                                    {currentUserRole === 'super_admin' && user.districts && (
-                                        <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded border border-slate-200 font-bold uppercase tracking-wider flex items-center gap-1">
-                                            <Building2 size={10} />
-                                            {user.districts.name}
-                                        </span>
-                                    )}
-                                    {user.organization && (
-                                        <span className="text-[10px] bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded border border-indigo-100 font-bold uppercase tracking-wider">
-                                            {user.organization}
-                                        </span>
-                                    )}
+                {currentUserRole === 'super_admin' && users.filter(u => !u.district_id).length > 0 && (
+                    <div className="mb-8">
+                        <h4 className="text-sm font-bold text-amber-600 mb-3 flex items-center gap-2">
+                            <AlertCircle size={16} /> Pending Assignment ({users.filter(u => !u.district_id).length})
+                        </h4>
+                        <div className="space-y-3">
+                            {users.filter(u => !u.district_id).map((user) => (
+                                <div key={user.id} className="flex items-center justify-between p-4 bg-amber-50 rounded-xl border border-amber-200">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border border-amber-200 shrink-0">
+                                            <User className="text-amber-500" size={20} />
+                                        </div>
+                                        <div>
+                                            <div className="flex items-center gap-2">
+                                                <span className="font-bold text-slate-900 text-sm">
+                                                    {user.full_name || user.email}
+                                                </span>
+                                                <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded border border-amber-200 font-bold uppercase tracking-wider">
+                                                    Unassigned
+                                                </span>
+                                            </div>
+                                            <div className="text-xs text-slate-500 font-medium">
+                                                <span>{user.email}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => handleEditClick(user)}
+                                            className="bg-white border border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
+                                        >
+                                            Assign District
+                                        </button>
+                                        <button className="text-slate-400 hover:text-red-600 p-2 transition-colors">
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="text-xs text-slate-400 font-medium flex items-center gap-2">
-                                    <span>{user.email}</span>
-                                    <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                                    <span>Last login: {user.last_login ? new Date(user.last_login).toLocaleString() : 'Never'}</span>
-                                </div>
-                                <div className="flex items-center space-x-2 mt-2">
-                                    <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${user.role === 'super_admin' || user.role === 'fortify_admin' ? 'bg-purple-100 text-purple-700 ring-1 ring-purple-200' :
-                                        user.role === 'district_admin' ? 'bg-blue-100 text-blue-700 ring-1 ring-blue-200' :
-                                            'bg-slate-100 text-slate-600'
-                                        }`}>
-                                        {user.role === 'super_admin' ? 'Fortify Superuser' :
-                                            roles.find(r => r.id === user.role)?.label || user.role.replace('_', ' ')}
-                                    </span>
-                                    <span className="text-[10px] text-slate-400 flex items-center">
-                                        <Calendar size={10} className="mr-1" />
-                                        Joined {new Date(user.created_at).toLocaleDateString()}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => handleEditClick(user)}
-                                className="text-slate-400 hover:text-blue-600 p-2 transition-colors"
-                            >
-                                <div className="sr-only">Edit</div>
-                                <User size={16} />
-                            </button>
-                            <button className="text-slate-400 hover:text-red-600 p-2 transition-colors">
-                                <Trash2 size={16} />
-                            </button>
+                            ))}
                         </div>
                     </div>
-                ))}
+                )}
+
+                <div className="space-y-4">
+                    {users.filter(u => !!u.district_id || currentUserRole !== 'super_admin').map((user) => (
+                        <div key={user.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div className="flex items-center space-x-4">
+                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border border-slate-200 shrink-0">
+                                    <User className="text-slate-400" size={20} />
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-bold text-slate-900 text-sm">
+                                            {user.full_name || user.email}
+                                        </span>
+                                        {currentUserRole === 'super_admin' && user.districts && (
+                                            <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded border border-slate-200 font-bold uppercase tracking-wider flex items-center gap-1">
+                                                <Building2 size={10} />
+                                                {user.districts.name}
+                                            </span>
+                                        )}
+                                        {user.organization && (
+                                            <span className="text-[10px] bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded border border-indigo-100 font-bold uppercase tracking-wider">
+                                                {user.organization}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="text-xs text-slate-400 font-medium flex items-center gap-2">
+                                        <span>{user.email}</span>
+                                        <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                                        <span>Last login: {user.last_login ? new Date(user.last_login).toLocaleString() : 'Never'}</span>
+                                    </div>
+                                    <div className="flex items-center space-x-2 mt-2">
+                                        <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${user.role === 'super_admin' || user.role === 'fortify_admin' ? 'bg-purple-100 text-purple-700 ring-1 ring-purple-200' :
+                                            user.role === 'district_admin' ? 'bg-blue-100 text-blue-700 ring-1 ring-blue-200' :
+                                                'bg-slate-100 text-slate-600'
+                                            }`}>
+                                            {user.role === 'super_admin' ? 'Fortify Superuser' :
+                                                roles.find(r => r.id === user.role)?.label || user.role.replace('_', ' ')}
+                                        </span>
+                                        <span className="text-[10px] text-slate-400 flex items-center">
+                                            <Calendar size={10} className="mr-1" />
+                                            Joined {new Date(user.created_at).toLocaleDateString()}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => handleEditClick(user)}
+                                    className="text-slate-400 hover:text-blue-600 p-2 transition-colors"
+                                >
+                                    <div className="sr-only">Edit</div>
+                                    <User size={16} />
+                                </button>
+                                <button className="text-slate-400 hover:text-red-600 p-2 transition-colors">
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Invite / Create User Modal */}
@@ -526,6 +588,25 @@ export function UserManagement() {
                                     </div>
                                 </div>
                             </div>
+
+                            {currentUserRole === 'super_admin' && (
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Primary District</label>
+                                    <div className="relative">
+                                        <Building2 className="absolute left-3 top-3 text-slate-400" size={18} />
+                                        <select
+                                            value={editForm.district_id}
+                                            onChange={(e) => setEditForm(prev => ({ ...prev, district_id: e.target.value }))}
+                                            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none"
+                                        >
+                                            <option value="">No District (Pending Assignment)</option>
+                                            {districts.map(d => (
+                                                <option key={d.id} value={d.id}>{d.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wide">Role</label>
